@@ -404,42 +404,44 @@ info-card.feeder { --accent: #2196f3; }
   </div>
 
   
-  <script>
-    (function(){
-      const ACCESS_PW = "demo"; 
-      const HOURS = 8;
-      const KEY = "login_until";
+<script>
+  (function(){
+    const ACCESS_PW = "demo";
+    const HOURS = 8;
 
-      const overlay = document.getElementById("loginOverlay");
-      const form = document.getElementById("loginForm");
-      const input = document.getElementById("passField");
-      const error = document.getElementById("loginError");
+    const APP_ID = "onoff_feeder_set_B";
+    const KEY = `login_until_${APP_ID}`;
 
-     
-      const expiry = Number(localStorage.getItem(KEY) || 0);
-      if (Date.now() < expiry) unlock();
+    const overlay = document.getElementById("loginOverlay");
+    const form = document.getElementById("loginForm");
+    const input = document.getElementById("passField");
+    const error = document.getElementById("loginError");
 
-      form.addEventListener("submit", function(e){
-        e.preventDefault();
-        error.style.display = "none";
-        if (input.value.trim() === ACCESS_PW) {
-          localStorage.setItem(KEY, String(Date.now() + HOURS*60*60*1000));
-          unlock();
-        } else {
-          error.style.display = "block";
-          input.select();
-        }
-      });
+    const expiry = Number(localStorage.getItem(KEY) || 0);
+    if (Date.now() < expiry) unlock();
 
-      function unlock() {
-        overlay.style.display = "none";
-        document.body.style.overflow = "";
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      error.style.display = "none";
+      if (input.value.trim() === ACCESS_PW) {
+        localStorage.setItem(KEY, String(Date.now() + HOURS*60*60*1000));
+        unlock();
+      } else {
+        error.style.display = "block";
+        input.select();
       }
+    });
 
-      input.addEventListener('input', () => { error.style.display = "none"; });
-    })();
-  </script>
+    function unlock() {
+      overlay.style.display = "none";
+      document.body.style.overflow = "";
+    }
 
+    input.addEventListener('input', () => { error.style.display = "none"; });
+
+    
+  })();
+</script>
  
   <script>
   const firebaseConfig = {
